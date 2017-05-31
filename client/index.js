@@ -1,10 +1,35 @@
 var imgTag = "";
 var wrongCounter = 0
+
+var playerInitials = ""
+var score = 0
+var imageC = 1
+
 var imageStart;
 var imageId;
 var timeArray = []
 
 $(document).ready(function(){
+
+    var form = $('form')
+    document.getElementById("init1").focus();
+    form.keyup(function() {
+        if($('#init1').val().length === 3) {
+            start();
+        }
+    })
+    document.addEventListener("keydown", keyDownHandler, false);
+    
+})
+
+function keyDownHandler(e) {
+    var wordArr = imgTag.split('')
+    var letterGuessed = false
+    wordArr.forEach(function(letter, index) {
+        if(letter === e.key) {
+            $(`#span-${index}`).text(e.key)
+            letterGuessed = true
+            wrongCounter = 0
 
     getImage()
     document.addEventListener("keydown", keyDownHandler, false);
@@ -25,28 +50,38 @@ $(document).ready(function(){
             if(wrongCounter > 5) {
                 $('#image').addClass('shake-opacity')
                 $('#tag-box').addClass('shake-slow')
+            } else {
+                $('#image').removeClass('shake-slow')
+                $('#image').removeClass('shake-opacity')
             }
-                $('#image').addClass('shake-slow')
-        } else {
-            $('#image').removeClass('shake-slow')
-            $('#image').removeClass('shake-opacity')
-        }
+          if(checkForWinner(wordArr)){
+              getImage()
+          }
+    })
+ 
 
-        if(checkForWinner(wordArr)){
-            getImage()
-        }
-    }
+    
+}
+function start() {
+    var startTimer = 3
+    
+    playerInitials = $('#init1').val()
+    $("#intro").fadeOut(500,function() {
+        document.getElementById("intro").style.visibility = "hidden";
+       // clearInterval(startCount);
+        
+        getScoreboard();
+        getImage();
+    });
+    
+}
 
 
-    // $('form').submit(function(e) {
-    //     e.preventDefault()
-    //     if($('#guess').val() === imgTag) {
-    //         alert('you win, Eric!')
-    //     } else {
-    //         alert('you lose, Tina!')
-    //     }
-    // })
-})
+function startGame() {
+    getImage()
+}
+
+
 //vars for timer
 var sTime = new Date().getTime();
 var countDown = 60000
@@ -86,9 +121,25 @@ function getImage() {
             createCharDivs();
         }
     })
+    imageC++;
+}
+
+function getScoreboard() {
+    console.log('score')
+    $.ajax({
+        url: "http://localhost:3000//api/v1/score_board",
+        success: function(data) {
+            var sboard = ""
+            data.forEach(function(score){
+                sboard += `${score.initials} | ${score.score} <br>`
+            })
+            $('#score').html(sboard)
+        }
+    })
 }
 
 function createCharDivs() {
+    console.log('divs')
     var charDivs = ""
     imgTag.split('').forEach(function(letter,index) {
         charDivs += `<span class='charDiv' id='span-${index}'>_</span> `
@@ -109,6 +160,23 @@ function checkForWinner(wordArr) {
 }
 
 
+function endGame() {
+    //display intials and score
+    console.log(playerInitials+" | "+score)
+    //ajax post for scoreboard
+    $.ajax({
+        url: "http://localhost:3000//api/v1/score_board",
+        method: "post",
+        data: {playerInitials: score},
+        success: function(data) {
+            console.log('score submitted')
+        }
+    })
+    //ajax post for durations
+
+    //reset to overlay div
+
+}
 
 function determineDuration(){
   let now = new Date().getTime()
@@ -117,7 +185,7 @@ function determineDuration(){
 }
 
 function writeToDurationTable(){
-  //
+
   $.ajax({
       url: "http://localhost:3000/api/v1/durations",
       method: "POST",
@@ -126,5 +194,6 @@ function writeToDurationTable(){
         console.log(data)
       }
   })
+
 }
 
