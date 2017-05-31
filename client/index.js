@@ -2,10 +2,10 @@ var imgTag = "";
 var wrongCounter = 0
 
 $(document).ready(function(){
-    
+
     getImage()
     document.addEventListener("keydown", keyDownHandler, false);
-  
+
 
     function keyDownHandler(e) {
         var wordArr = imgTag.split('')
@@ -21,7 +21,7 @@ $(document).ready(function(){
             wrongCounter += 1
             if(wrongCounter > 5) {
                 $('#image').addClass('shake-opacity')
-                $('#tag-box').addClass('shake-slow')    
+                $('#tag-box').addClass('shake-slow')
             }
                 $('#image').addClass('shake-slow')
         } else {
@@ -32,8 +32,7 @@ $(document).ready(function(){
         if(checkForWinner(wordArr)){
             getImage()
         }
-    }   
-
+    }
 
 
     // $('form').submit(function(e) {
@@ -45,6 +44,18 @@ $(document).ready(function(){
     //     }
     // })
 })
+
+var sTime = new Date().getTime();
+var countDown = 60
+setInterval(updateTime, 1000)
+
+function updateTime(){
+    var cTime = new Date().getTime();
+    var diff = cTime - sTime;
+    var seconds = countDown - Math.floor(diff / 1000);
+    $("#timer").text(seconds)
+}
+
 
 function getImage() {
     $.ajax({
@@ -62,7 +73,7 @@ function createCharDivs() {
     imgTag.split('').forEach(function(letter,index) {
         charDivs += `<span class='charDiv' id='span-${index}'>_</span> `
     })
-    
+
     $('#tag-box').html(charDivs)
 }
 
