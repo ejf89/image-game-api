@@ -1,12 +1,17 @@
 # DELEGATIONS OF FEAR
 
--Landing Page/Start Page
--Initials and score writing to API
--Add timer and add time upon getting things right (englishish accent)
--General layout stuff
--Join table for difficulty that calculate length of time
--Make pages look real pretty with bootstrap
+-Landing Page/Start Page - Started -- Needs countdown
+    
+-Initials and score writing to API - Started -- Scoreboard called, not writing yet
 
+-Add timer and add time upon getting things right (englishish accent) - Done, needs clean up
+
+
+-Join table for difficulty that calculate length of time
+
+#Thursday:
+-Make pages look real pretty with bootstrap
+-General layout stuff
 #Stretch Goals
 
 -Search for images/adds to API

@@ -1,38 +1,30 @@
 var imgTag = "";
+var img
 var wrongCounter = 0
+var imagesArray = []
 
 var playerInitials = ""
 var score = 0
-var imageC = 1
 
 var imageStart;
 var imageId;
 var timeArray = []
+var form = $('form')
+var levelCounter = 1;
 
 $(document).ready(function(){
 
-    var form = $('form')
     document.getElementById("init1").focus();
-    form.keyup(function() {
+    form.keyup(function(e) {
+        
+        e.stopPropagation();
         if($('#init1').val().length === 3) {
             start();
         }
     })
-    document.addEventListener("keydown", keyDownHandler, false);
     
 })
 
-function keyDownHandler(e) {
-    var wordArr = imgTag.split('')
-    var letterGuessed = false
-    wordArr.forEach(function(letter, index) {
-        if(letter === e.key) {
-            $(`#span-${index}`).text(e.key)
-            letterGuessed = true
-            wrongCounter = 0
-
-    getImage()
-    document.addEventListener("keydown", keyDownHandler, false);
 
 
     function keyDownHandler(e) {
@@ -43,9 +35,11 @@ function keyDownHandler(e) {
                 $(`#span-${index}`).text(e.key)
                 letterGuessed = true
                 wrongCounter = 0
+                
             }
         })
-        if(letterGuessed === false){
+
+        if(letterGuessed === false) {
             wrongCounter += 1
             if(wrongCounter > 5) {
                 $('#image').addClass('shake-opacity')
@@ -53,27 +47,29 @@ function keyDownHandler(e) {
             } else {
                 $('#image').removeClass('shake-slow')
                 $('#image').removeClass('shake-opacity')
-            }
-          if(checkForWinner(wordArr)){
-              getImage()
-          }
-    })
- 
+            }          
+        }   
 
-    
-}
+        if(checkForWinner(wordArr)){
+            console.log('checked')
+            getImage()
+        }
+    }
+
 function start() {
+    
     var startTimer = 3
     
     playerInitials = $('#init1').val()
     $("#intro").fadeOut(500,function() {
         document.getElementById("intro").style.visibility = "hidden";
-       // clearInterval(startCount);
-        
         getScoreboard();
+        getImages();
+        setInterval(updateTime, 1);
         getImage();
     });
     
+    document.addEventListener("keydown", keyDownHandler, false);
 }
 
 
@@ -85,7 +81,7 @@ function startGame() {
 //vars for timer
 var sTime = new Date().getTime();
 var countDown = 60000
-setInterval(updateTime, 1)
+
 var seconds
 
 function updateTime(){
@@ -108,24 +104,32 @@ function timerBarShrink(){
 }
 
 
-function getImage() {
-
+function getImages() {
     $.ajax({
-        url: "http://localhost:3000/api/v1/images/1",
+        url: `http://localhost:3000/api/v1/images/${levelCounter}`,
         success: function(data) {
-            imageStart = new Date().getTime()
-            imageId = data.id
-            console.log(imageId)
-            $('#image').html(`<img src=${data.url}>`)
-            imgTag = data.tag
-            createCharDivs();
+            data.forEach(function(image) {
+                imagesArray.push(image)
+            })
+            
         }
     })
-    imageC++;
+    
+}
+
+function getImage() {
+    imageStart = new Date().getTime()
+    img = imagesArray[Math.floor(Math.random()*imagesArray.length)]
+    
+    $('#image').html(`<img src=${img.url}>`)
+    imgTag = img.tag
+    imageId = img.id
+    console.log("id "+img.id+" tag "+img.tag)
+    createCharDivs();
 }
 
 function getScoreboard() {
-    console.log('score')
+    
     $.ajax({
         url: "http://localhost:3000//api/v1/score_board",
         success: function(data) {
@@ -173,19 +177,15 @@ function endGame() {
         }
     })
     //ajax post for durations
-
     //reset to overlay div
-
 }
 
 function determineDuration(){
   let now = new Date().getTime()
   timeArray.push({[`${imageId}`]: (now - imageStart)})
-
 }
 
 function writeToDurationTable(){
-
   $.ajax({
       url: "http://localhost:3000/api/v1/durations",
       method: "POST",
@@ -194,6 +194,5 @@ function writeToDurationTable(){
         console.log(data)
       }
   })
-
 }
 
