@@ -1,5 +1,8 @@
 var imgTag = "";
 var wrongCounter = 0
+var imageStart;
+var imageId;
+var timeArray = []
 
 $(document).ready(function(){
 
@@ -71,9 +74,13 @@ function timerBarShrink(){
 
 
 function getImage() {
+
     $.ajax({
         url: "http://localhost:3000/api/v1/images/1",
         success: function(data) {
+            imageStart = new Date().getTime()
+            imageId = data.id
+            console.log(imageId)
             $('#image').html(`<img src=${data.url}>`)
             imgTag = data.tag
             createCharDivs();
@@ -97,5 +104,27 @@ function checkForWinner(wordArr) {
             return false
         }
     }
+    determineDuration();
     return true
 }
+
+
+
+function determineDuration(){
+  let now = new Date().getTime()
+  timeArray.push({[`${imageId}`]: (now - imageStart)})
+
+}
+
+function writeToDurationTable(){
+  //
+  $.ajax({
+      url: "http://localhost:3000/api/v1/durations",
+      method: "POST",
+      data: {timeArray},
+      success: function(data) {
+        console.log(data)
+      }
+  })
+}
+
