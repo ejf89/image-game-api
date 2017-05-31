@@ -1,11 +1,14 @@
 var imgTag = "";
 var wrongCounter = 0
+var imageStart;
+var imageId;
+var timeArray = []
 
 $(document).ready(function(){
-    
+
     getImage()
     document.addEventListener("keydown", keyDownHandler, false);
-  
+
 
     function keyDownHandler(e) {
         var wordArr = imgTag.split('')
@@ -21,7 +24,7 @@ $(document).ready(function(){
             wrongCounter += 1
             if(wrongCounter > 5) {
                 $('#image').addClass('shake-opacity')
-                $('#tag-box').addClass('shake-slow')    
+                $('#tag-box').addClass('shake-slow')
             }
                 $('#image').addClass('shake-slow')
         } else {
@@ -32,7 +35,7 @@ $(document).ready(function(){
         if(checkForWinner(wordArr)){
             getImage()
         }
-    }   
+    }
 
 
 
@@ -47,9 +50,13 @@ $(document).ready(function(){
 })
 
 function getImage() {
+
     $.ajax({
         url: "http://localhost:3000/api/v1/images/1",
         success: function(data) {
+            imageStart = new Date().getTime()
+            imageId = data.id
+            console.log(imageId)
             $('#image').html(`<img src=${data.url}>`)
             imgTag = data.tag
             createCharDivs();
@@ -62,7 +69,7 @@ function createCharDivs() {
     imgTag.split('').forEach(function(letter,index) {
         charDivs += `<span class='charDiv' id='span-${index}'>_</span> `
     })
-    
+
     $('#tag-box').html(charDivs)
 }
 
@@ -73,5 +80,25 @@ function checkForWinner(wordArr) {
             return false
         }
     }
+    determineDuration();
     return true
+}
+
+
+function determineDuration(){
+  let now = new Date().getTime()
+  timeArray.push({[`${imageId}`]: (now - imageStart)})
+
+}
+
+function writeToDurationTable(){
+  //
+  $.ajax({
+      url: "http://localhost:3000/api/v1/durations",
+      method: "POST",
+      data: {timeArray},
+      success: function(data) {
+        console.log(data)
+      }
+  })
 }
