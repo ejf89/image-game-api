@@ -1,8 +1,13 @@
 var imgTag = "";
 var wrongCounter = 0
+
 var playerInitials = ""
 var score = 0
 var imageC = 1
+
+var imageStart;
+var imageId;
+var timeArray = []
 
 $(document).ready(function(){
 
@@ -104,10 +109,13 @@ function timerBarShrink(){
 
 
 function getImage() {
-    console.log(imageC)
+
     $.ajax({
         url: "http://localhost:3000/api/v1/images/1",
         success: function(data) {
+            imageStart = new Date().getTime()
+            imageId = data.id
+            console.log(imageId)
             $('#image').html(`<img src=${data.url}>`)
             imgTag = data.tag
             createCharDivs();
@@ -147,8 +155,10 @@ function checkForWinner(wordArr) {
             return false
         }
     }
+    determineDuration();
     return true
 }
+
 
 function endGame() {
     //display intials and score
@@ -165,5 +175,25 @@ function endGame() {
     //ajax post for durations
 
     //reset to overlay div
+
+}
+
+function determineDuration(){
+  let now = new Date().getTime()
+  timeArray.push({[`${imageId}`]: (now - imageStart)})
+
+}
+
+function writeToDurationTable(){
+
+  $.ajax({
+      url: "http://localhost:3000/api/v1/durations",
+      method: "POST",
+      data: {timeArray},
+      success: function(data) {
+        console.log(data)
+      }
+  })
+
 }
 

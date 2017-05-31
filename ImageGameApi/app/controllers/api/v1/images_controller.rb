@@ -2,6 +2,7 @@ class Api::V1::ImagesController < ApplicationController
 
   def index
     images = Image.all
+
     render json: images
   end
 
@@ -19,9 +20,9 @@ class Api::V1::ImagesController < ApplicationController
       image.save
       render json: image
     else
-      render text: "You suck."  
+      render text: "You suck."
     end
-    
+
 
   end
 

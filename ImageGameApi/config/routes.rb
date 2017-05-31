@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :images, only: [:index, :create, :show]
+
       resources :score_board, only: [:index, :create, :show]
+
+      resources :durations, only: [:index, :create, :show]
+
     end
   end
 end
