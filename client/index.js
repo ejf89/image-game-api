@@ -44,16 +44,29 @@ $(document).ready(function(){
     //     }
     // })
 })
-
+//vars for timer
 var sTime = new Date().getTime();
-var countDown = 60
-setInterval(updateTime, 1000)
+var countDown = 60000
+setInterval(updateTime, 1)
+var seconds
 
 function updateTime(){
     var cTime = new Date().getTime();
     var diff = cTime - sTime;
-    var seconds = countDown - Math.floor(diff / 1000);
-    $("#timer").text(seconds)
+    seconds = countDown - Math.floor(diff);
+    var strSec = seconds.toString().slice(0,2)
+    var strMil = seconds.toString().slice(2,6)
+
+    $("#seconds").text(strSec)
+    $("#milli").text(strMil)
+    timerBarShrink()
+}
+
+function timerBarShrink(){
+    var percent = seconds/countDown * 100
+    var curHeight = $('.timerBar').height()
+
+     $('.timerBar').css('height', (300 * (percent * 0.01) + 'px'));
 }
 
 
