@@ -10,6 +10,7 @@ $(document).ready(function(){
     document.addEventListener("keydown", keyDownHandler, false);
 
 
+
     function keyDownHandler(e) {
         var wordArr = imgTag.split('')
         var letterGuessed = false
@@ -127,4 +128,3 @@ function writeToDurationTable(){
       }
   })
 }
-
