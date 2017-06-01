@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    SearchRequest("dolphin")
+    // SearchRequest("dolphin")
     // getPicTags(picArray)
 })
 
@@ -58,6 +58,7 @@ function postToApi(array){
 }
 
 function stripTags(array){
+    debugger
     // var english = /^[A-Za-z0-9]*$/;
     let tags = array.photo.tags.tag.map(function (x){
         return x.raw

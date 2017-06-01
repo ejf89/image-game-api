@@ -37,14 +37,14 @@ $(document).ready(function(){
             if(!started) {
                 getScoreboard();
                 getImages();
-                
+
                 started = true;
             }
         }
     })
 })
 
-function startLevel() { 
+function startLevel() {
     getImage();
     if(score === 0) {
         setInterval(updateTime, 1);
@@ -64,7 +64,7 @@ function getImage() {
     document.addEventListener("keydown", keyDownHandler, false);
     imgTag = imgObj.tag;
     createCharDivs();
-    
+
     imageId = imgObj.id;
     img.src = imgObj.url;
     img.className = "image"
@@ -100,7 +100,7 @@ function guess(e) {
     imgTag.split('').forEach(function(letter, index) {
         if(letter === e.key) {
             $(`#span-${index}`).text(e.key)
-            wrongCounter = 0  
+            wrongCounter = 0
             correctGuess = true;
         }
     })
@@ -122,7 +122,7 @@ function increaseShakes() {
         $('#tag-box').addClass('shake-slow')
         $('.image').addClass('shake-constant')
         $('#tag-box').addClass('shake-constant')
-    }    
+    }
 }
 
 function checkForWin() {
@@ -181,12 +181,13 @@ function getScoreboard() {
     $.ajax({
         url: "http://localhost:3000/api/v1/score_board",
         success: function(data) {
-            var sboard = ""
+            var sboard = "<h3>SCORES</h3><table><tr><th>PLAYER   </th><th>SCORE</th></tr>"
             data.forEach(function(score){
-                sboard += `${score.initials} | ${score.score} <br>`
+                sboard += `<tr> <td>${score.initials} </td>  <td> ${score.score}</td></tr>`
             })
+            sboard += "</table>"
+            console.log(sboard)
             $('#score').html(sboard)
-            
         }
     })
 }
@@ -199,7 +200,7 @@ function getImages() {
                 imagesArray.push(image)
             })
             console.log(imagesArray)
-            setTimeout(startLevel,3000)
+            setTimeout(startLevel,10)
         }
     })
 }
