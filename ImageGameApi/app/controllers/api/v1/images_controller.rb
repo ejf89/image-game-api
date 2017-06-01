@@ -6,17 +6,17 @@ class Api::V1::ImagesController < ApplicationController
   end
 
     def show
-        images = Image.all
-        num = rand(images.length).floor+1
-        image = Image.find(num)
-        render json: image
+        images = Image.all.limit(30).where("difficulty <= (#{params[:id].to_i}*2000)")
+        render json: images
     end
 
 
   def create
+
       params[:array].each do |x|
           Image.create(url: params[:array][x].keys()[0], tag: params[:array][x].values()[0] )
       end
+
 
   end
 
