@@ -12,13 +12,10 @@ class Api::V1::ImagesController < ApplicationController
 
 
   def create
-    image = Image.new(image_params)
-    if image.valid?
-      image.save
-      render json: image
-    else
-      render text: "You suck."
-    end
+
+      params[:array].each do |x|
+          Image.create(url: params[:array][x].keys()[0], tag: params[:array][x].values()[0] )
+      end
 
 
   end
