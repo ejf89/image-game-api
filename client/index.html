@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="http://csshake.surge.sh/csshake.min.css">
     <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -25,7 +27,7 @@
     <title>Image Game Yo</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container responsive" align="center">
 
         <div class="overlay" id='intro'>
             <h1 id='start-header'>Please Enter Your Initials:</h1>
@@ -33,8 +35,10 @@
                 <input type="text" id="init1" maxlength="3">
 
             </form>
+
             <div id="playerStats"></div>
             <div id="mainScore"></div>
+
         </div>
 
         <div class="row" id="topBumper">
@@ -44,18 +48,27 @@
 
         </div>
 
+        <!-- <div class="row" id="underBumper">
+            <div class="col-md-12">
 
-        <div class="row justify-content-md-center">
+            </div>
+
+        </div> -->
+
+
+
+        <div class="row justify-content-md-center" id="mainRow">
             <div class="col-md-1">
             </div>
 
             <div class="col-md-2">
+                <div class="timerBarHolder">
                 <div id="timer">
                     <span id="seconds"></span>
                     <span id="timeSplit" style="font-size: 10pt">:</span>
                     <span id="milli"></span>
 
-                    <div class="timerBarHolder">
+
                         <div class="timerBar">
                         </div>
                     </div>
@@ -63,23 +76,30 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="shake-constant" align="center" id="imageDiv"></div>
+            <div class="col-md-6" id="picHolder">
+                <div style="width:400px" class="shake-constant" id="imageDiv"></div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div id='score'>
-   
             </div>
+            <div class="col-md-1">
+            </div>
+
             </div>
         </div>
 
-        <div class="row justify-content-md-cente" id="tagHolder">
+        <div class="row justify-content-md-center" id="tagHolder">
             <div class="col-md-4">
 
             </div>
-            <div class="col-md-5">
+
+            <div class="col-md-4">
                 <div class="shake-constant" id="tag-box"></div>
+            </div>
+
+            <div class="col-md-4">
+
             </div>
 
 

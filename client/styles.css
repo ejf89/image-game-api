@@ -6,6 +6,19 @@
 
 .timerBarHolder{
     height: 300px;
+    background-color: blue;
+}
+
+#topBumper{
+    position: absolute;
+    width: 100%;
+    background-color: blue;
+    z-index: 4
+}
+#mainRow{
+    margin-top: 110px;
+    /*position: relative;*/
+    /*z-index: 1*/
 }
 
 .timerBar{
@@ -18,18 +31,29 @@
     display: block;
     height: 300px;
     width: auto;
-    max-width: 470px;
-    position: fixed;
+    width: 400px;
     z-index: 1;
 }
+/*
+#picHolder{
+    width: 470px;
+    background-color: blue;
+}*/
 
+#imageDiv{
+    background-color: green;
+    display: block;
+    /*margin-left: 8%;
+    margin-right: 20%;*/
+    text-align: center;
+}
 /*.table td {
   align: center;
 }*/
 
 #tagHolder{
     margin-top: 70px;
-    /*z-index: 0;*/
+    align: center;
     /*position: absolute;*/
 }
 
