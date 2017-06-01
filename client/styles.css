@@ -1,5 +1,43 @@
+.container-fluid {
+   display: block;
+   height: auto;
+   max-width: 100%;
+}
+
+.timerBarHolder{
+    height: 300px;
+}
+
 .timerBar{
     width: 70px;
     height: 300px;
     background-color: green;
+}
+
+.image{
+    display: block;
+    height: 300px;
+    width: auto;
+    max-width: 470px;
+    position: fixed;
+    z-index: 1;
+}
+
+/*.table td {
+  align: center;
+}*/
+
+#tagHolder{
+    margin-top: 70px;
+    /*z-index: 0;*/
+    /*position: absolute;*/
+}
+
+#topBumper{
+    height: 130px;
+}
+
+#tag-box{
+    font-size: 60px;
+    /*position: fixed*/
 }
