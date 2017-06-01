@@ -169,9 +169,10 @@ function endGame() {
     submitScore()
     writeToDurationTable()
     $('#playerStats').html(`<h1>${playerInitials} ${score}</h1>`)
+    $('#init1').val("");
     document.getElementById("intro").style.visibility = "visible";
     $("#intro").fadeIn(5000,function() {
-        $form.val('');
+        
         
         document.getElementById("init1").focus();
     });
