@@ -13,10 +13,15 @@ var levelCounter = 1;
 //game variables
 var wrongCounter = 0
 var sTime = new Date().getTime();
-var countDown = 60000
+var countDown = 26000
+var gameCountdown
 var seconds
+var finishRound = false
 var timeArray = []
 var imageStart;
+var sboard = ""
+var end = false
+
 
 //jquery variables
 var $initialForm = $('#init1')
@@ -36,7 +41,7 @@ $(document).ready(function(){
             });
             if(!started) {
                 getScoreboard();
-                getImages();
+                getImages();    
                 
                 started = true;
             }
@@ -45,9 +50,11 @@ $(document).ready(function(){
 })
 
 function startLevel() { 
+    end = false;
     getImage();
     if(score === 0) {
-        setInterval(updateTime, 1);
+        
+        gameCountdown = setInterval(updateTime, 1);
     }
 }
 
@@ -71,6 +78,7 @@ function getImage() {
     imageStart = new Date().getTime()
 
     document.getElementById('imageDiv').appendChild(img);
+    
 }
 
 function createCharDivs() {
@@ -138,6 +146,7 @@ function checkForWin() {
 }
 
 function nextRound() {
+    finishRound = true
     document.getElementById('imageDiv').removeChild(img);
     score++;
     console.log("score: "+ score+" - level: "+ levelCounter)
@@ -151,7 +160,17 @@ function nextRound() {
 }
 
 function endGame() {
-    console.log('end game triggered')
+    end = true;
+    //clear events and intervals
+    clearInterval(gameCountdown);
+    document.removeEventListener("keydown", keyDownHandler);
+    
+    submitScore()
+    writeToDurationTable()
+    document.getElementById("intro").style.visibility = "visible";
+    $("#intro").fadeIn(5000,function() {
+        console.log('fadeIn')
+    });
     //should submit scoreboard ajax update with player initials
     //should display
 }
@@ -162,15 +181,25 @@ function determineDuration(){
 
 //timer functions
 function updateTime(){
-    var cTime = new Date().getTime();
-    var diff = cTime - sTime;
-    seconds = countDown - Math.floor(diff);
-    var strSec = seconds.toString().slice(0,2)
-    var strMil = seconds.toString().slice(2,6)
+        var cTime = new Date().getTime();
+        var diff = cTime - sTime;
+        // if(finishRound) {
+        //     console.log('finishround')
+        //     diff += 5000;
+        //     finishRound = false;
+        // }
+        seconds = countDown - Math.floor(diff);
+        var strSec = seconds.toString().slice(0,2)
+        var strMil = seconds.toString().slice(2,6)
 
-    $("#seconds").text(strSec)
-    $("#milli").text(strMil)
-    timerBarShrink()
+        $("#seconds").text(strSec)
+        $("#milli").text(strMil)
+        timerBarShrink()
+        if(strSec < 0) {
+            endGame();
+        }
+    
+    
 }
 
 function timerBarShrink(){
@@ -185,11 +214,17 @@ function getScoreboard() {
     $.ajax({
         url: "http://localhost:3000/api/v1/score_board",
         success: function(data) {
-            var sboard = ""
+            sboard = ""
             data.forEach(function(score){
+                
                 sboard += `${score.initials} | ${score.score} <br>`
             })
-            $('#score').html(sboard)
+            if(!end) {
+                $('#score').html(sboard)
+            } else {
+                $('#mainScore').html(sboard)
+            }
+
             
         }
     })
@@ -219,6 +254,16 @@ function writeToDurationTable(){
   })
 }
 
+function submitScore(){
+  $.ajax({
+      url: "http://localhost:3000/api/v1/score_board",
+      method: "POST",
+      data: {[`${playerInitials}`]:score},
+      success: function(data) {
+        getScoreboard();
+      }
+  })
+}
 // function showScores(){
 //   // add event listener to document for after game
 //   // write out scoreboard here
