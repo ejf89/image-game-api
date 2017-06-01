@@ -57,8 +57,9 @@ function getImage() {
         return true
     }
     imgPos = Math.floor(Math.random()*imagesArray.length)
-    console.log(imgPos)
     imgObj = imagesArray[imagePos]
+    console.log(imagesArray.length)
+    console.log(imgObj)
     img = document.createElement("IMG");
     document.addEventListener("keydown", keyDownHandler, false);
     imgTag = imgObj.tag;
@@ -85,7 +86,7 @@ function keyDownHandler(e) {
     if(guess(e)) {
         resetShakes();
         if(checkForWin()) {
-            imagesArray.splice(imgPos,1)
+            imagesArray.splice(imagesArray.indexOf(imgObj),1)
             document.removeEventListener("keydown", keyDownHandler);
             nextRound();
         }
@@ -109,13 +110,18 @@ function guess(e) {
 function resetShakes() {
     $('.image').removeClass('shake-slow')
     $('.image').removeClass('shake-opacity')
+    $('#tag-box').removeClass('shake-slow')
+    $('.image').removeClass('shake-constant')
+    $('#tag-box').removeClass('shake-constant')
 }
 
 function increaseShakes() {
     wrongCounter += 1
     if(wrongCounter > 5) {
-        $('.image').addClass('shake-opacity')
+        $('.image').addClass('shake-slow')
         $('#tag-box').addClass('shake-slow')
+        $('.image').addClass('shake-constant')
+        $('#tag-box').addClass('shake-constant')
     }    
 }
 
@@ -142,6 +148,9 @@ function nextRound() {
     }
 }
 
+function endGame() {
+    console.log('end game triggered')
+}
 function determineDuration(){
   let now = new Date().getTime()
   timeArray.push({[`${imageId}`]: (now - imageStart)})
