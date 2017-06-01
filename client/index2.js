@@ -3,7 +3,6 @@ var imagesArray = [];
 var imagePos = 0;
 var imageId;
 var imageTag;
-var img
 
 //player variables
 var playerInitials;
@@ -26,51 +25,40 @@ var $divs = $('.charDiv')
 
 $(document).ready(function(){
     document.getElementById("init1").focus();
-    var started = false
     $form.keyup(function(e) {
         e.stopPropagation();
         if($initialForm.val().length === 3) {
             playerInitials = $initialForm.val()
             $("#intro").fadeOut(500,function() {
                 document.getElementById("intro").style.visibility = "hidden";
+                startGame();
             });
-            if(!started) {
-                getScoreboard();
-                getImages();
-                
-                started = true;
-            }
         }
     })
 })
 
-function startLevel() { 
+function startGame() {
+    getImages();
+    getScoreboard();
+    setInterval(updateTime, 1);
     getImage();
-    if(score === 0) {
-        setInterval(updateTime, 1);
-    }
+    
 }
 
 function getImage() {
-    if(imagesArray.length < 1) {
-        console.log('getImage fired early')
-        return true
-    }
     imgPos = Math.floor(Math.random()*imagesArray.length)
     imgObj = imagesArray[imagePos]
-    console.log(imagesArray.length)
-    console.log(imgObj)
-    img = document.createElement("IMG");
-    document.addEventListener("keydown", keyDownHandler, false);
-    imgTag = imgObj.tag;
-    createCharDivs();
-    
-    imageId = imgObj.id;
-    img.src = imgObj.url;
-    img.className = "image"
-    imageStart = new Date().getTime()
-
-    document.getElementById('imageDiv').appendChild(img);
+    img = new Image();
+    img.onload = function () {
+        //prevents early misfire of event handling if image isnt loaded
+        document.addEventListener("keydown", keyDownHandler, false);
+        createCharDivs();
+        imgTag = imgObj.tag;
+        imageId = imgObj.id;
+        img.src = imgObj.url;
+        imageStart = new Date().getTime()
+    }
+    $(img).appendTo('#image');
 }
 
 function createCharDivs() {
@@ -81,16 +69,14 @@ function createCharDivs() {
     $('#tag-box').html(charDivs)
 }
 
-
 function keyDownHandler(e) {
     e.stopPropagation();
     if(guess(e)) {
         resetShakes();
         if(checkForWin()) {
-            imagesArray.splice(imagesArray.indexOf(imgObj),1)
+            imagesArray.splice(imgPos,1)
             document.removeEventListener("keydown", keyDownHandler);
             nextRound();
-
         }
     } else {
         increaseShakes();
@@ -110,27 +96,21 @@ function guess(e) {
 }
 
 function resetShakes() {
-    $('.image').removeClass('shake-slow')
-    $('.image').removeClass('shake-opacity')
-    $('#tag-box').removeClass('shake-slow')
-    $('.image').removeClass('shake-constant')
-    $('#tag-box').removeClass('shake-constant')
+    $('#image').removeClass('shake-slow')
+    $('#image').removeClass('shake-opacity')
 }
 
 function increaseShakes() {
     wrongCounter += 1
     if(wrongCounter > 5) {
-        $('.image').addClass('shake-slow')
+        $('#image').addClass('shake-opacity')
         $('#tag-box').addClass('shake-slow')
-        $('.image').addClass('shake-constant')
-        $('#tag-box').addClass('shake-constant')
     }    
 }
 
 function checkForWin() {
-    let $div = $('.charDiv')
-    for(i = 0; i < $div.length; i++) {
-        if($div[i].textContent === "_") {
+    for(i = 0; i < divs.length; i++) {
+        if(divs[i].textContent === "_") {
             return false;
         }
     }
@@ -138,21 +118,17 @@ function checkForWin() {
 }
 
 function nextRound() {
-    document.getElementById('imageDiv').removeChild(img);
     score++;
-    console.log("score: "+ score+" - level: "+ levelCounter)
-    determineDuration();
     if(imagesArray.length < 1) {
         levelCounter++
         getImages();
+        getImage();
     } else {
+        determineDuration();
         getImage();
     }
 }
 
-function endGame() {
-    console.log('end game triggered')
-}
 function determineDuration(){
   let now = new Date().getTime()
   timeArray.push({[`${imageId}`]: (now - imageStart)})
@@ -178,6 +154,7 @@ function timerBarShrink(){
 }
 
 
+
 //ajax calls
 function getScoreboard() {
     $.ajax({
@@ -188,7 +165,6 @@ function getScoreboard() {
                 sboard += `${score.initials} | ${score.score} <br>`
             })
             $('#score').html(sboard)
-            
         }
     })
 }
@@ -200,8 +176,6 @@ function getImages() {
             data.forEach(function(image) {
                 imagesArray.push(image)
             })
-            console.log(imagesArray)
-            setTimeout(startLevel,3000)
         }
     })
 }
@@ -212,15 +186,7 @@ function writeToDurationTable(){
       method: "POST",
       data: {timeArray},
       success: function(data) {
-        console.log('durations submitted')
+        console.log(data)
       }
   })
 }
-
-// function showScores(){
-//   // add event listener to document for after game
-//   // write out scoreboard here
-//
-//
-// }
-

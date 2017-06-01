@@ -1,12 +1,23 @@
 # DELEGATIONS OF FEAR
 
--Landing Page/Start Page
--Initials and score writing to API
--Add timer and add time upon getting things right (englishish accent)
--General layout stuff
--Join table for difficulty that calculate length of time
--Make pages look real pretty with bootstrap
+-Landing Page/Start Page - DONE
+    
+-Initials and score writing to API #No Score posting yet
 
+-Add timer and add time upon getting things right (englishish accent) - DONE
+
+-Join table for difficulty that calculate length of time
+
+#End Game
+-Write end game functionality that posts to API to send score and image duration data
+-API updates records for scores and for each image played
+
+#Refactoring/Debugging of JS file
+-Rewrite to handle 
+
+#Thursday:
+-Make pages look real pretty with bootstrap
+-General layout stuff
 #Stretch Goals
 
 -Search for images/adds to API
