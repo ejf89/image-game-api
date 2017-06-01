@@ -128,3 +128,10 @@ function writeToDurationTable(){
       }
   })
 }
+
+// function showScores(){
+//   // add event listener to document for after game
+//   // write out scoreboard here
+//
+//
+// }
