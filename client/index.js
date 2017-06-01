@@ -81,6 +81,7 @@ function createCharDivs() {
     $('#tag-box').html(charDivs)
 }
 
+
 function keyDownHandler(e) {
     e.stopPropagation();
     if(guess(e)) {
@@ -89,6 +90,7 @@ function keyDownHandler(e) {
             imagesArray.splice(imagesArray.indexOf(imgObj),1)
             document.removeEventListener("keydown", keyDownHandler);
             nextRound();
+
         }
     } else {
         increaseShakes();
@@ -216,3 +218,11 @@ function writeToDurationTable(){
       }
   })
 }
+
+// function showScores(){
+//   // add event listener to document for after game
+//   // write out scoreboard here
+//
+//
+// }
+
