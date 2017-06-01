@@ -150,6 +150,8 @@ function nextRound() {
 
 function endGame() {
     console.log('end game triggered')
+    //should submit scoreboard ajax update with player initials
+    //should display
 }
 function determineDuration(){
   let now = new Date().getTime()
