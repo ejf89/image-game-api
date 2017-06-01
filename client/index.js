@@ -50,11 +50,11 @@ $(document).ready(function(){
     })
 })
 
-function startLevel() { 
+function startLevel() {
     end = false;
     getImage();
     if(score === 0) {
-        
+
         gameCountdown = setInterval(updateTime, 1);
     }
 }
@@ -79,7 +79,7 @@ function getImage() {
     imageStart = new Date().getTime()
 
     document.getElementById('imageDiv').appendChild(img);
-    
+
 }
 
 function createCharDivs() {
@@ -165,7 +165,7 @@ function endGame() {
     //clear events and intervals
     clearInterval(gameCountdown);
     document.removeEventListener("keydown", keyDownHandler);
-    
+
     submitScore()
     writeToDurationTable()
     document.getElementById("intro").style.visibility = "visible";
@@ -197,10 +197,10 @@ function updateTime(){
         $("#milli").text(strMil)
         timerBarShrink()
         if(strSec < 0) {
-            endGame();
+            // endGame();
         }
-    
-    
+
+
 }
 
 function timerBarShrink(){
@@ -228,8 +228,6 @@ function getScoreboard() {
             } else {
                 $('#mainScore').html(sboard)
             }
-
-            
 
         }
     })
@@ -275,4 +273,3 @@ function submitScore(){
 //
 //
 // }
-
