@@ -168,9 +168,12 @@ function endGame() {
     
     submitScore()
     writeToDurationTable()
+    $('#playerStats').html(`<h1>${playerInitials} ${score}</h1>`)
     document.getElementById("intro").style.visibility = "visible";
     $("#intro").fadeIn(5000,function() {
-        console.log('fadeIn')
+        $form.val('');
+        
+        document.getElementById("init1").focus();
     });
     //should submit scoreboard ajax update with player initials
     //should display
