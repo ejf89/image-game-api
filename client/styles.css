@@ -18,7 +18,23 @@
 #mainRow{
     margin-top: 110px;
     /*position: relative;*/
-    /*z-index: 1*/
+    z-index: 1;
+    margin-bottom: -82px;
+    /*background-color: blue;*/
+}
+
+.bg{
+    position: absolute;
+    background-color: blue;
+    width: 100%;
+    height: auto;
+    z-index: 4;
+}
+
+.timerBarHolder{
+    /*position: absolute;*/
+    margin-top: 102px;
+    z-index: 5
 }
 
 .timerBar{
@@ -30,15 +46,18 @@
 .image{
     display: block;
     height: 300px;
-    width: auto;
+    /*width: auto;*/
     width: 400px;
     z-index: 1;
 }
-/*
-#picHolder{
-    width: 470px;
+
+img{
+    z-index: -1;
+}
+
+#leftSide{
     background-color: blue;
-}*/
+}
 
 #imageDiv{
     background-color: green;
@@ -47,14 +66,14 @@
     margin-right: 20%;*/
     text-align: center;
 }
-/*.table td {
-  align: center;
-}*/
 
 #tagHolder{
     margin-top: 70px;
+    width: 100%;
+    height: 100%;
     align: center;
-    /*position: absolute;*/
+    background-color: blue;
+    position: fixed;
 }
 
 #topBumper{
@@ -63,5 +82,28 @@
 
 #tag-box{
     font-size: 60px;
-    /*position: fixed*/
+}
+
+#score{
+    margin-top: 140px;
+}
+
+.left{
+    position: fixed;
+    height: 100%;
+    background-color: blue;
+    top: 0;
+    left: 0;
+    width: 35%;
+    z-index: 4;
+}
+
+.right{
+    position: fixed;
+    height: 100%;
+    background-color: blue;
+    top: 0;
+    right: 0;
+    width: 35%;
+    z-index: 4;
 }
