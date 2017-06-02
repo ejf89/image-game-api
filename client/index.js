@@ -135,9 +135,6 @@ function guess(e) {
 function resetShakes() {
     $('.image').removeClass('shake-constant')
     $('#tag-box').removeClass('shake-constant')
-    // $('#imageDiv').removeClass('shake-hard')
-    // $('#imageDiv').removeClass('shake-constant')
-    // $('#imageDiv').removeClass('shake-slow')
 }
 
 function increaseShakes() {
@@ -157,17 +154,11 @@ function increaseShakes() {
     } else if (wrongCounter < 11) {
                 $('.image').removeClass('shake-slow')
         $('#tag-box').removeClass('shake-slow')
-        // $('#imageDiv').addClass('shake-constant')
-        // $('#imageDiv').addClass('shake-hard')
         $('.image').addClass('shake-opacity')
         $('#tag-box').addClass('shake-opacity')
-
     }  else if (wrongCounter > 20) {
-
         $('.image').removeClass('shake-opacity')
         $('#tag-box').removeClass('shake-opacity')
-        // $('#imageDiv').removeClass('shake-hard')
-        // $('#imageDiv').addClass('shake-slow')
         $('.image').addClass('shake-crazy')
         $('#tag-box').addClass('shake-crazy')
     }
@@ -211,7 +202,7 @@ function endGame() {
 
     submitScore()
     writeToDurationTable()
-    $('#playerStats').html(`<h1>${playerInitials} ${score}</h1>`)
+    $('#playerStats').html(`<h1 class='text-uppercase'>${playerInitials} ${score}</h1>`)
     $('#init1').val("");
     document.getElementById("intro").style.visibility = "visible";
     $("#intro").fadeIn(5000,function() {
