@@ -4,7 +4,7 @@ $(document).ready(function(){
         e.preventDefault()
         let searchString = $("#searchInput")[0].value
         SearchRequest(searchString)
-        alert("Enter your initials to start this shit!")
+        alert("Enter your initials to start!")
     })
 })
 
@@ -17,7 +17,7 @@ function SearchRequest (search){
 
 
 
-    var linkUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=815602f3323a376683c5834d951d071a&tags="+search+"&tag_mode=all&sort=interestingness-desc&format=json&nojsoncallback=1"
+    var linkUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=b151c8b3a265beb77d09a5cbb986c5d6&tags="+search+"&tag_mode=all&sort=interestingness-desc&format=json&nojsoncallback=1"
 
     $.ajax({
         url: linkUrl,
@@ -42,7 +42,7 @@ function getPicTags(array){
 
         var realUrl = `https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`
 
-        let picUrl =  "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=815602f3323a376683c5834d951d071a&photo_id="+ pic.id + "&secret=&format=json&nojsoncallback=1"
+        let picUrl =  "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=b151c8b3a265beb77d09a5cbb986c5d6&photo_id="+ pic.id + "&secret=&format=json&nojsoncallback=1"
         $.ajax({
             url: picUrl,
             async: false,
