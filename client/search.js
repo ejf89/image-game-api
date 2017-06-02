@@ -91,5 +91,5 @@ function stripTags(array){
             }
         }
     })
-     return redTags.splice(0,2)
+     return redTags.splice(0,1)
 }

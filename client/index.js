@@ -247,7 +247,7 @@ function getScoreboard() {
 
             var sboard = "<h3>SCORES</h3><table><tr><th>PLAYER   </th><th>SCORE</th></tr>"
             data.forEach(function(score){
-                sboard += `<tr> <td>${score.initials} </td>  <td> ${score.score}</td></tr>`
+                sboard += `<tr> <td class="text-uppercase">${score.initials} </td>  <td> ${score.score}</td></tr>`
             })
             sboard += "</table>"
             console.log(sboard)
