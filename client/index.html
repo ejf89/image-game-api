@@ -27,18 +27,55 @@
     <title>Image Game Yo</title>
 </head>
 <body>
-    <div class="container responsive" align="center">
+    <div id="containerDiv" align="center">
 
         <div class="overlay" id='intro'>
             <h1 id='start-header'>Please Enter Your Initials:</h1>
             <form id="initForm" action="#">
                 <input type="text" id="init1" maxlength="3">
-
             </form>
-
             <div id="playerStats"></div>
             <div id="mainScore"></div>
 
+        </div>
+      
+        <div id="inset">
+            <div id="timerBarHolder">
+                <div id="timer">
+                    <div id="time">
+                        
+                      <span id="seconds"></span>
+                      <span id="timeSplit" style="font-size: 10pt">:</span>
+                      <span id="milli"></span>
+                        
+                    </div>
+                    <div class="timerBar"></div>
+                </div>
+            </div>
+        </div>
+      
+        <div id="pic-container">
+            <div id="picHolder">
+                <div id="upperTV"></div>
+                <div id="midTV">      
+                    <div style="width:400px" class="shake-constant" id="imageDiv"></div>  
+                </div>
+                <div id="lowerTV">     
+                     <div id='tvText'>Starting Game...</div>
+                </div>
+                <div id="tagHolder">
+                        <div class="shake-constant" id="tag-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="scoreHolder">
+            <div id='score'></div>
+        </div>
+        
+        
+
+        <div id="keypressed"></div>
             <div id="searchBox">
                 <h1>or make a search to customize your game:</h1>
                 <form id="searchForm">
@@ -48,63 +85,6 @@
 
             </div>
 
-        </div>
-
-
-
-        <div class="row bg" id="topBumper">
-            <div class="col-md-12">
-
-            </div>
-
-        </div>
-
-
-
-
-        <div class="row justify-content-md-center" id="mainRow">
-            <div class="col-md-1">
-            </div>
-
-            <div class="col-md-2" id="leftSide">
-
-            </div>
-
-            <div class="col-md-6" id="picHolder">
-                <div style="width:400px" class="shake-constant" id="imageDiv"></div>
-                <div class="shake-constant" id="tag-box"></div>
-            </div>
-
-            <div class="col-md-2">
-
-            <div class="col-md-1">
-            </div>
-
-            </div>
-        </div>
-
-
-
-        <div class="left bg">
-            <div class="timerBarHolder">
-            <div id="timer">
-                <span id="seconds"></span>
-                <span id="timeSplit" style="font-size: 10pt">:</span>
-                <span id="milli"></span>
-
-
-                    <div class="timerBar">
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="right bg">
-            <div id='score'>
-        </div>
-        </div>
 
 
     <div id="keypressed"></div>
