@@ -13,7 +13,7 @@ var levelCounter = 1;
 //game variables
 var wrongCounter = 0
 var sTime = new Date().getTime();
-var countDown = 26000
+var countDown = 60000
 var gameCountdown
 var seconds
 var finishRound = false
@@ -172,8 +172,8 @@ function endGame() {
     $('#init1').val("");
     document.getElementById("intro").style.visibility = "visible";
     $("#intro").fadeIn(5000,function() {
-        
-        
+
+
         document.getElementById("init1").focus();
     });
     //should submit scoreboard ajax update with player initials
@@ -201,7 +201,7 @@ function updateTime(){
         $("#milli").text(strMil)
         timerBarShrink()
         if(strSec < 0) {
-            // endGame();
+            endGame();
         }
 
 
