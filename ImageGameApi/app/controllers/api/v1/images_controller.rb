@@ -6,7 +6,8 @@ class Api::V1::ImagesController < ApplicationController
   end
 
     def show
-        images = Image.all.limit(30).where("difficulty <= (#{params[:id].to_i}*2000)")
+        images = Image.all.where("difficulty <= (#{params[:id].to_i}*2000)").shuffle[0..9]
+
         render json: images
     end
 

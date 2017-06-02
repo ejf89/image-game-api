@@ -64,9 +64,8 @@ function getImage() {
         console.log('getImage fired early')
         return true
     }
-    imgPos = Math.floor(Math.random()*imagesArray.length)
-    imgObj = imagesArray[imagePos]
-    console.log(imagesArray.length)
+    // imgPos = Math.floor(Math.random()*imagesArray.length)
+    imgObj = imagesArray[0]
     console.log(imgObj)
     img = document.createElement("IMG");
     document.addEventListener("keydown", keyDownHandler, false);
