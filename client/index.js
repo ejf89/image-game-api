@@ -13,7 +13,7 @@ var levelCounter = 1;
 //game variables
 var wrongCounter = 0
 var sTime = new Date().getTime();
-var countDown = 60000
+var countDown = 65000
 var gameCountdown
 var seconds
 var finishRound = false
@@ -21,6 +21,7 @@ var timeArray = []
 var imageStart;
 var sboard = ""
 var end = false
+var started
 
 
 //jquery variables
@@ -30,8 +31,14 @@ var $divs = $('.charDiv')
 
 
 $(document).ready(function(){
+    kickOff()
+
+})
+
+function kickOff(){
+    counteDown = 65000
     document.getElementById("init1").focus();
-    var started = false
+    started = false
     $form.keyup(function(e) {
         e.stopPropagation();
         if($initialForm.val().length === 3) {
@@ -40,6 +47,7 @@ $(document).ready(function(){
                 document.getElementById("intro").style.visibility = "hidden";
             });
             if(!started) {
+                // timerBarReset()
                 getScoreboard();
                 getImages();
 
@@ -48,15 +56,20 @@ $(document).ready(function(){
             }
         }
     })
-})
+
+}
 
 function startLevel() {
+    if (levelCounter === 1){
+        timerBarReset()
+    }
+
     end = false;
     getImage();
     if(score === 0) {
         gameCountdown = setInterval(updateTime, 1);
     }
-    
+
 }
 
 function getImage() {
@@ -76,10 +89,10 @@ function getImage() {
     img.src = imgObj.url;
     img.className = "image";
     imageStart = new Date().getTime();
-    
+
     // document.getElementById('midTV').style.backgroundImage = "url('images/old-television_sm.png')"
     setTimeout(document.getElementById('imageDiv').appendChild(img),4000);
-    
+
 
 }
 
@@ -130,7 +143,7 @@ function resetShakes() {
 function increaseShakes() {
     wrongCounter += 1
     if (wrongCounter < 3) {
-    
+
     } else if (wrongCounter < 6) {
                 $('.image').addClass('shake-constant')
         $('#tag-box').addClass('shake-constant')
@@ -148,9 +161,9 @@ function increaseShakes() {
         // $('#imageDiv').addClass('shake-hard')
         $('.image').addClass('shake-opacity')
         $('#tag-box').addClass('shake-opacity')
-        
+
     }  else if (wrongCounter > 20) {
-        
+
         $('.image').removeClass('shake-opacity')
         $('#tag-box').removeClass('shake-opacity')
         // $('#imageDiv').removeClass('shake-hard')
@@ -186,7 +199,13 @@ function nextRound() {
 
 function endGame() {
     end = true;
+    levelCounter = 1;
+    // debugger
     //clear events and intervals
+    // document.getElementById('imageDiv').appendChild(img)
+    document.getElementById('imageDiv').removeChild(img);
+    // countDown = 60000
+
     clearInterval(gameCountdown);
     document.removeEventListener("keydown", keyDownHandler);
 
@@ -199,6 +218,8 @@ function endGame() {
 
 
         document.getElementById("init1").focus();
+        // timerBarReset()
+        kickOff()
     });
     //should submit scoreboard ajax update with player initials
     //should display
@@ -218,23 +239,35 @@ function updateTime(){
         //     finishRound = false;
         // }
         seconds = countDown - Math.floor(diff);
-        var strSec = seconds.toString().slice(0,2)
-        var strMil = seconds.toString().slice(2,6)
+        if (seconds > 9999){
+            var strSec = seconds.toString().slice(0,2)
+            var strMil = seconds.toString().slice(2,6)
 
-        $("#seconds").text(strSec)
-        $("#milli").text(strMil)
-        timerBarShrink()
-        if(strSec < 0) {
-            endGame();
+            $("#seconds").text(strSec)
+            $("#milli").text(strMil)
+
+        } else {
+
+            var strMil = seconds.toString().slice(0,4)
+            $("#seconds").text("")
+            $("#milli").text(strMil)
         }
 
+        timerBarShrink()
+        if(seconds < 0) {
+            endGame();
 
+        }
 }
 
 function timerBarShrink(){
     var percent = seconds/countDown * 100
     var curHeight = $('.timerBar').height()
      $('.timerBar').css('height', (300 * (percent * 0.01) + 'px'));
+}
+
+function timerBarReset(){
+    $('.timerBar').css('height', (300 + 'px'));
 }
 
 
