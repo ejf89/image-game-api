@@ -197,8 +197,8 @@ function endGame() {
     $('#init1').val("");
     document.getElementById("intro").style.visibility = "visible";
     $("#intro").fadeIn(5000,function() {
-        
-        
+
+
         document.getElementById("init1").focus();
     });
     //should submit scoreboard ajax update with player initials

@@ -1,7 +1,11 @@
 $(document).ready(function(){
 
-    // SearchRequest("dolphin")
-    // getPicTags(picArray)
+    $("#searchForm").submit(function(e){
+        e.preventDefault()
+        let searchString = $("#searchInput")[0].value
+        SearchRequest(searchString)
+        alert("Enter your initials to start this shit!")
+    })
 })
 
 let picPostArray = []
@@ -10,15 +14,25 @@ let rawTags = []
 
 function SearchRequest (search){
 
-    var linkUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=04eb22e333553d6354fe9ad8344ae2bf&tags=" +search+"&tag_mode=all&format=json&nojsoncallback=1"
+
+
+
+    var linkUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=815602f3323a376683c5834d951d071a&tags="+search+"&tag_mode=all&sort=interestingness-desc&format=json&nojsoncallback=1"
+
     $.ajax({
         url: linkUrl,
         success: function(data) {
-            var pics = data.photos.photo
-            for (var i = 0; i < 3; i++){
-                picArray.push(pics[i])
+            try{
+                var pics = data.photos.photo
+                for (var i = 0; i < 2; i++){
+                    picArray.push(pics[i])
+                }
+                getPicTags(picArray)
             }
-            getPicTags(picArray)
+            catch(err){
+                alert("Demand that your admin fix this feature")
+            }
+
         }
     })
 }
@@ -28,7 +42,7 @@ function getPicTags(array){
 
         var realUrl = `https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`
 
-        let picUrl =  "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=4d015b439f3e6b80cc9e5a0c49f248b9&photo_id="+ pic.id + "&secret=&format=json&nojsoncallback=1"
+        let picUrl =  "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=815602f3323a376683c5834d951d071a&photo_id="+ pic.id + "&secret=&format=json&nojsoncallback=1"
         $.ajax({
             url: picUrl,
             async: false,
@@ -42,6 +56,7 @@ function getPicTags(array){
             }
         })
     })
+    // debugger
     postToApi(picPostArray)
 }
 
@@ -58,8 +73,6 @@ function postToApi(array){
 }
 
 function stripTags(array){
-    debugger
-    // var english = /^[A-Za-z0-9]*$/;
     let tags = array.photo.tags.tag.map(function (x){
         return x.raw
     })
@@ -78,5 +91,5 @@ function stripTags(array){
             }
         }
     })
-     return redTags.splice(0,3)
+     return redTags.splice(0,2)
 }

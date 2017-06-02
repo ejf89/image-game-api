@@ -4,8 +4,10 @@
    max-width: 100%;
 }
 
+
 body {
     background-image: url("images/wood_panel_dark.jpg");
+
 }
 
 #containerDiv {
@@ -41,13 +43,29 @@ body {
 /*#topBumper{
     position: absolute;
     width: 100%;
-    background-color: blue;
+    background-color: #f45642;
     z-index: 4
 }*/
 #mainRow{
     margin-top: 110px;
     /*position: relative;*/
-    /*z-index: 1*/
+    z-index: 1;
+    margin-bottom: -82px;
+    /*background-color: #f45642;*/
+}
+
+.bg{
+    position: absolute;
+    background-color: #f45642;
+    width: 100%;
+    height: auto;
+    z-index: 4;
+}
+
+.timerBarHolder{
+    /*position: absolute;*/
+    margin-top: 102px;
+    z-index: 5
 }
 
 .timerBar{
@@ -66,10 +84,11 @@ body {
 .image{
     display: block;
     height: 300px;
-    width: auto;
+    /*width: auto;*/
     width: 400px;
     z-index: 1;
 }
+
 
 #pic-container {
     padding-top: 4em;
@@ -88,9 +107,6 @@ body {
     display: block;
     text-align: center;
 }
-/*.table td {
-  align: center;
-}*/
 
 #tagHolder{
     margin-top: 20px;
@@ -102,7 +118,30 @@ body {
 
 #tag-box{
     font-size: 60px;
-    /*position: fixed*/
+}
+
+#score{
+    margin-top: 140px;
+}
+
+.left{
+    position: fixed;
+    height: 100%;
+    background-color: #f45642;
+    top: 0;
+    left: 0;
+    width: 35%;
+    z-index: 4;
+}
+
+.right{
+    position: fixed;
+    height: 100%;
+    background-color: #f45642;
+    top: 0;
+    right: 0;
+    width: 35%;
+    z-index: 4;
 }
 
 #upperTV {
