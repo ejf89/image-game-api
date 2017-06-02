@@ -4,17 +4,46 @@
    max-width: 100%;
 }
 
-.timerBarHolder{
-    height: 300px;
-    background-color: blue;
+body {
+    background-image: url("images/wood_panel_dark.jpg");
 }
 
-#topBumper{
+#containerDiv {
+    background-image: url("images/woodpanel01.jpg");
+    display: block;
+    height: auto;
+    margin: auto;
+    max-width: 1080px;
+}
+
+#timerBarHolder{
+    position: absolute;
+    
+    top: 5em;
+    left: 15em;
+    height: 360px;
+    width: 108px;
+    background-image: url("images/woodpanel02.jpg");
+}
+
+#scoreHolder {
+    position: absolute;
+    font-size: 125%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+    top: 5em;
+    right: 11em;
+    height: 360px;
+    width: 180px;
+    background-image: url("images/wallpaperbg.jpg");
+}
+
+/*#topBumper{
     position: absolute;
     width: 100%;
     background-color: blue;
     z-index: 4
-}
+}*/
 #mainRow{
     margin-top: 110px;
     /*position: relative;*/
@@ -22,9 +51,16 @@
 }
 
 .timerBar{
+    margin-top: 2em;
     width: 70px;
     height: 300px;
-    background-color: green;
+    background-image: url("images/wallpaperbg.jpg");
+}
+
+#time {
+    font-size: 150%;
+    color: #4F4;
+    background-color: #010;
 }
 
 .image{
@@ -34,17 +70,22 @@
     width: 400px;
     z-index: 1;
 }
-/*
+
+#pic-container {
+    padding-top: 4em;
+    height: 100%;
+}
 #picHolder{
-    width: 470px;
-    background-color: blue;
-}*/
+    
+    width: 550px;
+    height: 600px;
+    padding: 1em 1em;
+    background-image: url("images/woodpanel02.jpg");
+}
 
 #imageDiv{
     background-color: green;
     display: block;
-    /*margin-left: 8%;
-    margin-right: 20%;*/
     text-align: center;
 }
 /*.table td {
@@ -52,9 +93,7 @@
 }*/
 
 #tagHolder{
-    margin-top: 70px;
-    align: center;
-    /*position: absolute;*/
+    margin-top: 20px;
 }
 
 #topBumper{
@@ -65,3 +104,30 @@
     font-size: 60px;
     /*position: fixed*/
 }
+
+#upperTV {
+    position: relative;
+    height:350px;
+    widows: 100%;
+    background-image: url("images/old-television_sm.png");
+    z-index: 5;
+}
+
+#midTV {
+    position: relative;
+    margin-top: -320px;
+    margin-left: -60px;
+    width: 400px;
+    height: 300px;
+    
+    z-index: 3;
+}
+#lowerTV {
+    position: relative;
+    margin-top: -300px;
+    margin-left: -67px;
+    width: 400px;
+    height: 300px;
+    background-image: url("images/indian-head-test-pattern.jpg");
+}
+

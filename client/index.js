@@ -54,7 +54,6 @@ function startLevel() {
     end = false;
     getImage();
     if(score === 0) {
-
         gameCountdown = setInterval(updateTime, 1);
     }
 }
@@ -75,10 +74,12 @@ function getImage() {
 
     imageId = imgObj.id;
     img.src = imgObj.url;
-    img.className = "image"
-    imageStart = new Date().getTime()
+    img.className = "image";
+    imageStart = new Date().getTime();
 
-    document.getElementById('imageDiv').appendChild(img);
+    document.getElementById('midTV').style.backgroundImage = "url('images/old-television_sm.png')"
+    setTimeout(document.getElementById('imageDiv').appendChild(img),4000);
+    $("#midTV").css("background", "");
 
 }
 
@@ -201,7 +202,7 @@ function updateTime(){
         $("#milli").text(strMil)
         timerBarShrink()
         if(strSec < 0) {
-            // endGame();
+            endGame();
         }
 
 
@@ -245,7 +246,7 @@ function getImages() {
                 imagesArray.push(image)
             })
             console.log(imagesArray)
-            setTimeout(startLevel,10)
+            setTimeout(startLevel,3000)
         }
     })
 }
