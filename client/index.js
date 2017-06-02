@@ -13,7 +13,7 @@ var levelCounter = 1;
 //game variables
 var wrongCounter = 0
 var sTime = new Date().getTime();
-var countDown = 26000
+var countDown = 60000
 var gameCountdown
 var seconds
 var finishRound = false
@@ -56,6 +56,7 @@ function startLevel() {
     if(score === 0) {
         gameCountdown = setInterval(updateTime, 1);
     }
+    
 }
 
 function getImage() {
@@ -76,10 +77,10 @@ function getImage() {
     img.src = imgObj.url;
     img.className = "image";
     imageStart = new Date().getTime();
-
-    document.getElementById('midTV').style.backgroundImage = "url('images/old-television_sm.png')"
+    
+    // document.getElementById('midTV').style.backgroundImage = "url('images/old-television_sm.png')"
     setTimeout(document.getElementById('imageDiv').appendChild(img),4000);
-    $("#midTV").css("background", "");
+    
 
 }
 
@@ -120,20 +121,43 @@ function guess(e) {
 }
 
 function resetShakes() {
-    $('.image').removeClass('shake-slow')
-    $('.image').removeClass('shake-opacity')
-    $('#tag-box').removeClass('shake-slow')
     $('.image').removeClass('shake-constant')
     $('#tag-box').removeClass('shake-constant')
+    // $('#imageDiv').removeClass('shake-hard')
+    // $('#imageDiv').removeClass('shake-constant')
+    // $('#imageDiv').removeClass('shake-slow')
 }
 
 function increaseShakes() {
     wrongCounter += 1
-    if(wrongCounter > 5) {
+    if (wrongCounter < 3) {
+    
+    } else if (wrongCounter < 6) {
+                $('.image').addClass('shake-constant')
+        $('#tag-box').addClass('shake-constant')
+        $('.image').addClass('shake-little')
+        $('#tag-box').addClass('shake-little')
+    } else if (wrongCounter < 8) {
+                $('.image').removeClass('shake-little')
+        $('#tag-box').removeClass('shake-little')
         $('.image').addClass('shake-slow')
         $('#tag-box').addClass('shake-slow')
-        $('.image').addClass('shake-constant')
-        $('#tag-box').addClass('shake-constant')
+    } else if (wrongCounter < 11) {
+                $('.image').removeClass('shake-slow')
+        $('#tag-box').removeClass('shake-slow')
+        // $('#imageDiv').addClass('shake-constant')
+        // $('#imageDiv').addClass('shake-hard')
+        $('.image').addClass('shake-opacity')
+        $('#tag-box').addClass('shake-opacity')
+        
+    }  else if (wrongCounter > 20) {
+        
+        $('.image').removeClass('shake-opacity')
+        $('#tag-box').removeClass('shake-opacity')
+        // $('#imageDiv').removeClass('shake-hard')
+        // $('#imageDiv').addClass('shake-slow')
+        $('.image').addClass('shake-crazy')
+        $('#tag-box').addClass('shake-crazy')
     }
 }
 
@@ -239,6 +263,9 @@ function getScoreboard() {
 }
 
 function getImages() {
+    if (score != 0) {
+        $('#tvText').html("Please Stand By...")
+    }
     $.ajax({
         url: `http://localhost:3000/api/v1/images/${levelCounter}`,
         success: function(data) {

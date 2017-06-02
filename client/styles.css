@@ -84,7 +84,7 @@ body {
 }
 
 #imageDiv{
-    background-color: green;
+    background-image: url("images/static.jpg");
     display: block;
     text-align: center;
 }
@@ -124,10 +124,21 @@ body {
 }
 #lowerTV {
     position: relative;
-    margin-top: -300px;
-    margin-left: -67px;
+    margin-top: -320px;
+    margin-left: -60px;
     width: 400px;
     height: 300px;
     background-image: url("images/indian-head-test-pattern.jpg");
+}
+#tvText {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 250px;
+    height: 50px;
+    z-index: 2;
+    font-size: 200%;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
